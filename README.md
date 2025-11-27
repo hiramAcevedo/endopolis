@@ -2,6 +2,10 @@
 
 Sistema web para la gestión de citas médicas de la Clínica de Gastroenterología y Nutrición Endopolis.
 
+## 🌐 Demo en Vivo
+
+🔗 **[endopolis.vercel.app](https://endopolis.vercel.app)**
+
 ## 📋 Características
 
 ### Fase 1 (MVP - Actual)
@@ -31,8 +35,38 @@ Sistema web para la gestión de citas médicas de la Clínica de Gastroenterolog
 | PostgreSQL | Persistencia |
 | Tailwind CSS | Estilos responsivos |
 | Lucide React | Iconografía |
+| Jose (JWT) | Autenticación |
 
-## 🚀 Instalación
+## ☁️ Arquitectura de Despliegue
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                         USUARIOS                            │
+└─────────────────────────┬───────────────────────────────────┘
+                          │
+                          ▼
+┌─────────────────────────────────────────────────────────────┐
+│                    VERCEL (Frontend)                        │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │  Next.js 16 (App Router + API Routes)               │   │
+│  │  - SSR/SSG para páginas públicas                    │   │
+│  │  - API Routes para autenticación y CRUD             │   │
+│  │  - Edge Runtime para mejor rendimiento              │   │
+│  └─────────────────────────┬───────────────────────────┘   │
+└─────────────────────────────┼───────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────┐
+│                  RAILWAY (Base de Datos)                    │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │  PostgreSQL                                          │   │
+│  │  - Tablas: User, Patient, Appointment, Service...   │   │
+│  │  - Conexión segura via Prisma ORM                   │   │
+│  └─────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## 🚀 Instalación Local
 
 ### Prerrequisitos
 - Node.js 18+
@@ -42,6 +76,7 @@ Sistema web para la gestión de citas médicas de la Clínica de Gastroenterolog
 
 1. **Clonar e instalar dependencias**
 ```bash
+git clone https://github.com/hiramAcevedo/endopolis.git
 cd endopolis
 npm install
 ```
@@ -49,7 +84,15 @@ npm install
 2. **Configurar variables de entorno**
 ```bash
 cp .env.example .env
-# Editar .env con tu DATABASE_URL
+```
+
+Editar `.env`:
+```env
+# Base de datos PostgreSQL
+DATABASE_URL="postgresql://usuario:password@localhost:5432/endopolis?schema=public"
+
+# JWT Secret (generar uno aleatorio para producción)
+JWT_SECRET="tu-clave-secreta-aqui"
 ```
 
 3. **Configurar base de datos**
@@ -57,7 +100,7 @@ cp .env.example .env
 # Crear tablas
 npm run db:push
 
-# Poblar datos iniciales
+# Poblar datos iniciales (admin, servicios, configuración)
 npm run db:seed
 ```
 
@@ -87,7 +130,7 @@ endopolis/
 ├── src/
 │   ├── app/
 │   │   ├── (auth)/        # Login, registro
-│   │   ├── (public)/      # Páginas públicas
+│   │   ├── (public)/      # Páginas públicas (nosotros, servicios)
 │   │   ├── admin/         # Panel admin
 │   │   ├── agendar/       # Formulario de citas
 │   │   ├── api/           # API endpoints
@@ -98,34 +141,54 @@ endopolis/
 │   │   └── ui/            # Componentes reutilizables
 │   ├── lib/
 │   │   ├── prisma.ts      # Cliente de BD
-│   │   ├── auth.ts        # Autenticación
+│   │   ├── auth.ts        # Autenticación JWT
 │   │   └── appointments.ts # Lógica de citas
 │   └── types/             # TypeScript types
-└── public/                # Archivos estáticos
+└── public/                # Imágenes y archivos estáticos
 ```
 
-## 🌐 Despliegue en Railway
+## ☁️ Despliegue
 
-1. Crear cuenta en [Railway](https://railway.app)
-2. Crear nuevo proyecto
-3. Agregar PostgreSQL como servicio
-4. Conectar repositorio de GitHub
-5. Configurar variables de entorno:
-   - `DATABASE_URL` (se genera automáticamente)
-6. Desplegar
+### Vercel (Frontend + API)
 
-Railway ejecutará automáticamente:
-- `npm install`
-- `prisma generate`
-- `npm run build`
-- `npm run start`
+1. Importar proyecto desde GitHub en [vercel.com](https://vercel.com)
+2. Configurar variables de entorno:
 
-## 📱 Capturas
+| Variable | Descripción |
+|----------|-------------|
+| `DATABASE_URL` | URL de PostgreSQL con `?sslmode=disable` |
+| `JWT_SECRET` | Clave secreta para tokens (generar aleatoria) |
+
+3. Deploy automático en cada push a `main`
+
+### Railway (Base de Datos)
+
+1. Crear proyecto en [railway.app](https://railway.app)
+2. Agregar servicio PostgreSQL
+3. Copiar la URL de conexión
+4. Ejecutar migraciones:
+```bash
+# Con DATABASE_URL apuntando a Railway
+npx prisma db push
+npm run db:seed
+```
+
+### Variables de Entorno en Producción
+
+```env
+# Railway PostgreSQL (agregar ?sslmode=disable)
+DATABASE_URL="postgresql://postgres:PASSWORD@HOST:PORT/railway?sslmode=disable"
+
+# Generar con: openssl rand -hex 32
+JWT_SECRET="clave-secreta-aleatoria-de-64-caracteres"
+```
+
+## 📱 Funcionalidades
 
 ### Landing Page
 - Hero con video de YouTube
-- Sección de servicios
-- Equipo médico
+- Sección de servicios médicos
+- Equipo médico con fotos reales
 - Mapa de Google Maps
 - Botón de WhatsApp flotante
 
@@ -135,11 +198,12 @@ Railway ejecutará automáticamente:
 - Edición de perfil
 
 ### Panel Administrativo
-- Dashboard con estadísticas
-- Gestión de citas
-- Calendario visual
-- Lista de pacientes
-- Configuración
+- Dashboard con estadísticas del día
+- Gestión de citas (confirmar, rechazar, completar)
+- Calendario visual de citas
+- Lista de pacientes con historial
+- Bloqueo de horarios
+- Configuración del sistema
 
 ## 🔑 Servicios Disponibles
 
@@ -150,10 +214,31 @@ Railway ejecutará automáticamente:
 | Endoscopia | 60 min | 10:00-12:00 | 10:00-14:00 |
 | Colonoscopia | 60 min | 10:00-12:00 | 10:00-14:00 |
 
+## 🔧 Scripts Disponibles
+
+```bash
+npm run dev        # Servidor de desarrollo
+npm run build      # Build de producción
+npm run start      # Servidor de producción
+npm run db:push    # Sincronizar schema con BD
+npm run db:seed    # Poblar datos iniciales
+npm run db:studio  # Abrir Prisma Studio (GUI)
+```
+
 ## 📄 Licencia
 
-Este proyecto fue desarrollado como producto integrador para el curso IH719 - Conceptualización de Servicios en la Nube.
+Este proyecto fue desarrollado como **Producto Integrador** para el curso:
+- **IH719** - Conceptualización de Servicios en la Nube
+- Universidad de Guadalajara - CUCEI
+- Noviembre 2024
 
 ---
 
-Desarrollado por Hiram Acevedo usando Next.js y Tailwind CSS
+Desarrollado por **Hiram Acevedo** 🚀
+
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
+[![Prisma](https://img.shields.io/badge/Prisma-6-2D3748?logo=prisma)](https://www.prisma.io/)
+[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?logo=vercel)](https://vercel.com/)
+[![Railway](https://img.shields.io/badge/Database-Railway-0B0D0E?logo=railway)](https://railway.app/)

@@ -90,7 +90,7 @@ export default function Hero() {
             <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-emerald-500/20 border-4 border-white">
               {/* YouTube embed placeholder - replace VIDEO_ID with actual video */}
               <iframe
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1"
+                src="https://www.youtube.com/watch?v=1_FlrvVQ6Tc?rel=0&modestbranding=1"
                 title="Presentación Endopolis"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
