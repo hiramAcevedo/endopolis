@@ -11,6 +11,7 @@ import {
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
+import Image from "next/image";
 
 export const metadata = {
   title: "Endoscopia - Endopolis",
@@ -115,37 +116,50 @@ export default async function EndoscopiaPage() {
                     se transmiten a un monitor, permitiendo visualizar cualquier
                     anomalía y, de ser necesario, tomar biopsias.
                   </p>
-                  <div className="bg-cyan-50 rounded-xl p-6 mt-6">
-                    <h3 className="font-bold text-slate-800 mb-3">
-                      El procedimiento incluye:
-                    </h3>
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-cyan-500 mt-0.5" />
-                        <span className="text-slate-600">
-                          Sedación para tu comodidad (no sentirás molestias)
-                        </span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-cyan-500 mt-0.5" />
-                        <span className="text-slate-600">
-                          Exploración completa en HD del tracto digestivo superior
-                        </span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-cyan-500 mt-0.5" />
-                        <span className="text-slate-600">
-                          Toma de biopsias si es necesario
-                        </span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-cyan-500 mt-0.5" />
-                        <span className="text-slate-600">
-                          Resultados el mismo día
-                        </span>
-                      </li>
-                    </ul>
-                  </div>
+                </div>
+
+                {/* Image section */}
+                <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg">
+                  <Image
+                    src="/endos2.jpeg"
+                    alt="Procedimiento de endoscopia en Endopolis"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 66vw"
+                  />
+                </div>
+
+                {/* Procedure includes */}
+                <div className="bg-cyan-50 rounded-xl p-6">
+                  <h3 className="font-bold text-slate-800 mb-3">
+                    El procedimiento incluye:
+                  </h3>
+                  <ul className="space-y-2">
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-cyan-500 mt-0.5" />
+                      <span className="text-slate-600">
+                        Sedación para tu comodidad (no sentirás molestias)
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-cyan-500 mt-0.5" />
+                      <span className="text-slate-600">
+                        Exploración completa en HD del tracto digestivo superior
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-cyan-500 mt-0.5" />
+                      <span className="text-slate-600">
+                        Toma de biopsias si es necesario
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-cyan-500 mt-0.5" />
+                      <span className="text-slate-600">
+                        Resultados el mismo día
+                      </span>
+                    </li>
+                  </ul>
                 </div>
 
                 {/* Indications */}
@@ -223,8 +237,14 @@ export default async function EndoscopiaPage() {
                 {/* Doctor Card */}
                 <Card>
                   <div className="text-center">
-                    <div className="w-20 h-20 bg-gradient-to-br from-cyan-500 to-teal-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold">
-                      AA
+                    <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden relative">
+                      <Image
+                        src="/doctor.jpeg"
+                        alt="Dr. Agustín Acevedo"
+                        fill
+                        className="object-cover"
+                        sizes="96px"
+                      />
                     </div>
                     <h3 className="font-bold text-slate-800">
                       Dr. Agustín Acevedo
@@ -278,4 +298,3 @@ export default async function EndoscopiaPage() {
     </>
   );
 }
-

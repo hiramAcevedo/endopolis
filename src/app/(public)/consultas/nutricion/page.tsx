@@ -10,6 +10,7 @@ import {
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
+import Image from "next/image";
 
 export const metadata = {
   title: "Consulta de Nutrición - Endopolis",
@@ -143,6 +144,17 @@ export default async function NutricionPage() {
                   </ul>
                 </div>
 
+                {/* Image section */}
+                <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg">
+                  <Image
+                    src="/nutriologa_consulta.jpeg"
+                    alt="Lic. María Cecilia López en consulta"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 66vw"
+                  />
+                </div>
+
                 {/* Benefits */}
                 <div>
                   <h2 className="text-2xl font-bold text-slate-800 mb-4">
@@ -158,6 +170,36 @@ export default async function NutricionPage() {
                         <span className="text-slate-700 text-sm">{benefit}</span>
                       </div>
                     ))}
+                  </div>
+                </div>
+
+                {/* Come sin culpa section */}
+                <div className="bg-gradient-to-r from-teal-50 to-emerald-50 rounded-2xl p-8">
+                  <div className="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                      <h2 className="text-2xl font-bold text-slate-800 mb-4">
+                        ¡Come sin culpa!
+                      </h2>
+                      <p className="text-slate-600 mb-4">
+                        Con el plan nutricional adecuado, puedes disfrutar de tus 
+                        comidas favoritas de manera balanceada. Nuestro enfoque no 
+                        se trata de restricciones extremas, sino de encontrar el 
+                        equilibrio perfecto para tu estilo de vida.
+                      </p>
+                      <p className="text-slate-600">
+                        Aprende a disfrutar de la comida mientras cuidas tu salud 
+                        y alcanzas tus objetivos.
+                      </p>
+                    </div>
+                    <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg">
+                      <Image
+                        src="/come_sin_culpa.jpeg"
+                        alt="Come sin culpa - Disfrutando de la comida"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 300px"
+                      />
+                    </div>
                   </div>
                 </div>
 
@@ -207,8 +249,14 @@ export default async function NutricionPage() {
                 {/* Doctor Card */}
                 <Card>
                   <div className="text-center">
-                    <div className="w-20 h-20 bg-gradient-to-br from-teal-500 to-emerald-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold">
-                      ML
+                    <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden relative">
+                      <Image
+                        src="/nutriologa.jpeg"
+                        alt="Lic. María Cecilia López"
+                        fill
+                        className="object-cover"
+                        sizes="96px"
+                      />
                     </div>
                     <h3 className="font-bold text-slate-800">
                       Lic. María Cecilia López
@@ -257,4 +305,3 @@ export default async function NutricionPage() {
     </>
   );
 }
-

@@ -1,11 +1,14 @@
+"use client";
+
 import { Award, GraduationCap, Star } from "lucide-react";
 import Card from "../ui/Card";
+import Image from "next/image";
 
 const team = [
   {
     name: "Dr. Agustín Acevedo",
     title: "Gastroenterólogo",
-    image: "/images/dr-agustin.jpg",
+    image: "/doctor.jpeg",
     description:
       "Especialista con más de 15 años de experiencia en gastroenterología y endoscopia digestiva.",
     credentials: [
@@ -17,7 +20,7 @@ const team = [
   {
     name: "Lic. María Cecilia López",
     title: "Nutrióloga",
-    image: "/images/lic-cecilia.jpg",
+    image: "/nutriologa.jpeg",
     description:
       "Experta en nutrición clínica y manejo nutricional de enfermedades gastrointestinales.",
     credentials: [
@@ -52,16 +55,13 @@ export default function TeamSection() {
           {team.map((member) => (
             <Card key={member.name} className="overflow-hidden" padding="none">
               <div className="aspect-[4/3] relative bg-gradient-to-br from-emerald-100 to-teal-100">
-                {/* Placeholder for actual photo */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-32 h-32 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full flex items-center justify-center text-white text-4xl font-bold shadow-lg">
-                    {member.name
-                      .split(" ")
-                      .filter((_, i) => i === 0 || i === 2)
-                      .map((n) => n[0])
-                      .join("")}
-                  </div>
-                </div>
+                <Image
+                  src={member.image}
+                  alt={member.name}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
                 {/* Overlay gradient */}
                 <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white to-transparent" />
               </div>
@@ -153,4 +153,3 @@ export default function TeamSection() {
     </section>
   );
 }
-

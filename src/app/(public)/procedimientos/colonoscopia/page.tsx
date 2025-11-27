@@ -11,6 +11,7 @@ import {
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
+import Image from "next/image";
 
 export const metadata = {
   title: "Colonoscopia - Endopolis",
@@ -114,37 +115,61 @@ export default async function ColonoscopiaPage() {
                     colorrectal, ya que permite visualizar y remover pólipos
                     antes de que se conviertan en cáncer.
                   </p>
-                  <div className="bg-sky-50 rounded-xl p-6 mt-6">
-                    <h3 className="font-bold text-slate-800 mb-3">
-                      El procedimiento permite:
-                    </h3>
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-sky-500 mt-0.5" />
-                        <span className="text-slate-600">
-                          Visualizar todo el colon en alta definición
-                        </span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-sky-500 mt-0.5" />
-                        <span className="text-slate-600">
-                          Detectar y remover pólipos durante el mismo estudio
-                        </span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-sky-500 mt-0.5" />
-                        <span className="text-slate-600">
-                          Tomar biopsias de lesiones sospechosas
-                        </span>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-sky-500 mt-0.5" />
-                        <span className="text-slate-600">
-                          Diagnosticar enfermedades inflamatorias intestinales
-                        </span>
-                      </li>
-                    </ul>
+                </div>
+
+                {/* Image gallery */}
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="relative aspect-video rounded-xl overflow-hidden shadow-lg">
+                    <Image
+                      src="/endos1.jpeg"
+                      alt="Equipo de colonoscopia en Endopolis"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
                   </div>
+                  <div className="relative aspect-video rounded-xl overflow-hidden shadow-lg">
+                    <Image
+                      src="/endos3.jpeg"
+                      alt="Procedimiento de colonoscopia"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  </div>
+                </div>
+
+                {/* Procedure allows */}
+                <div className="bg-sky-50 rounded-xl p-6">
+                  <h3 className="font-bold text-slate-800 mb-3">
+                    El procedimiento permite:
+                  </h3>
+                  <ul className="space-y-2">
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-sky-500 mt-0.5" />
+                      <span className="text-slate-600">
+                        Visualizar todo el colon en alta definición
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-sky-500 mt-0.5" />
+                      <span className="text-slate-600">
+                        Detectar y remover pólipos durante el mismo estudio
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-sky-500 mt-0.5" />
+                      <span className="text-slate-600">
+                        Tomar biopsias de lesiones sospechosas
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 text-sky-500 mt-0.5" />
+                      <span className="text-slate-600">
+                        Diagnosticar enfermedades inflamatorias intestinales
+                      </span>
+                    </li>
+                  </ul>
                 </div>
 
                 {/* Importance */}
@@ -244,8 +269,14 @@ export default async function ColonoscopiaPage() {
                 {/* Doctor Card */}
                 <Card>
                   <div className="text-center">
-                    <div className="w-20 h-20 bg-gradient-to-br from-sky-500 to-cyan-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold">
-                      AA
+                    <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden relative">
+                      <Image
+                        src="/doctor.jpeg"
+                        alt="Dr. Agustín Acevedo"
+                        fill
+                        className="object-cover"
+                        sizes="96px"
+                      />
                     </div>
                     <h3 className="font-bold text-slate-800">
                       Dr. Agustín Acevedo
@@ -305,4 +336,3 @@ export default async function ColonoscopiaPage() {
     </>
   );
 }
-

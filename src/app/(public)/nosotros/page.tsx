@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
+import Image from "next/image";
 
 export const metadata = {
   title: "Quiénes Somos - Endopolis",
@@ -91,12 +92,14 @@ export default async function NosotrosPage() {
                 </div>
               </div>
               <div className="relative">
-                <div className="aspect-square bg-gradient-to-br from-emerald-100 to-teal-100 rounded-2xl overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-48 h-48 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full flex items-center justify-center">
-                      <Heart className="w-24 h-24 text-white" />
-                    </div>
-                  </div>
+                <div className="aspect-square bg-gradient-to-br from-emerald-100 to-teal-100 rounded-2xl overflow-hidden shadow-xl">
+                  <Image
+                    src="/endos3.jpeg"
+                    alt="Procedimiento endoscópico en Endopolis"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
                 </div>
                 <div className="absolute -bottom-6 -right-6 bg-white rounded-xl shadow-xl p-6">
                   <div className="flex items-center gap-4">
@@ -246,9 +249,21 @@ export default async function NosotrosPage() {
         {/* Team Section */}
         <TeamSection />
 
-        {/* CTA */}
-        <section className="py-20 bg-gradient-to-br from-emerald-600 to-teal-700">
-          <div className="container mx-auto px-4 text-center">
+        {/* CTA con imagen */}
+        <section className="py-20 bg-slate-900 relative overflow-hidden">
+          {/* Imagen de fondo */}
+          <div className="absolute inset-0">
+            <Image
+              src="/peso_alimentacion_suplementacion.jpeg"
+              alt="Salud integral: peso, alimentación y suplementación"
+              fill
+              className="object-cover opacity-30"
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/90 via-teal-900/80 to-emerald-900/90" />
+          </div>
+          
+          <div className="container mx-auto px-4 text-center relative z-10">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
               ¿Listo para cuidar tu salud digestiva?
             </h2>
@@ -272,4 +287,3 @@ export default async function NosotrosPage() {
     </>
   );
 }
-

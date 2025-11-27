@@ -10,6 +10,7 @@ import {
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
+import Image from "next/image";
 
 export const metadata = {
   title: "Consulta de Gastroenterología - Endopolis",
@@ -143,6 +144,17 @@ export default async function GastroenterologiaPage() {
                   </ul>
                 </div>
 
+                {/* Image section */}
+                <div className="relative aspect-video rounded-2xl overflow-hidden shadow-lg">
+                  <Image
+                    src="/doctor_consulta.jpeg"
+                    alt="Dr. Agustín Acevedo en consulta"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 66vw"
+                  />
+                </div>
+
                 {/* Symptoms */}
                 <div>
                   <h2 className="text-2xl font-bold text-slate-800 mb-4">
@@ -211,8 +223,14 @@ export default async function GastroenterologiaPage() {
                 {/* Doctor Card */}
                 <Card>
                   <div className="text-center">
-                    <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold">
-                      AA
+                    <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden relative">
+                      <Image
+                        src="/doctor.jpeg"
+                        alt="Dr. Agustín Acevedo"
+                        fill
+                        className="object-cover"
+                        sizes="96px"
+                      />
                     </div>
                     <h3 className="font-bold text-slate-800">
                       Dr. Agustín Acevedo
@@ -263,4 +281,3 @@ export default async function GastroenterologiaPage() {
     </>
   );
 }
-
