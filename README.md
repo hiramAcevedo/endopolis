@@ -1,36 +1,159 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏥 Endopolis - Sistema de Gestión de Citas Médicas
 
-## Getting Started
+Sistema web para la gestión de citas médicas de la Clínica de Gastroenterología y Nutrición Endopolis.
 
-First, run the development server:
+## 📋 Características
 
+### Fase 1 (MVP - Actual)
+- ✅ Landing page con video embebido (YouTube) y mapa (Google Maps)
+- ✅ Registro e inicio de sesión de usuarios
+- ✅ Creación de citas con selector de fecha/hora
+- ✅ Portal del paciente (ver citas, editar perfil)
+- ✅ Panel de administrador completo
+- ✅ Botón flotante de WhatsApp
+- ✅ Diseño responsivo
+
+### Características del Admin
+- Dashboard con estadísticas del día
+- Gestión de citas (confirmar, rechazar, completar)
+- Lista de pacientes con historial
+- Calendario visual de citas
+- Bloqueo de horarios
+- Configuración del sistema
+
+## 🛠️ Stack Tecnológico
+
+| Tecnología | Función |
+|------------|---------|
+| Next.js 16 | Framework fullstack (App Router) |
+| TypeScript | Tipado estático |
+| Prisma ORM | Base de datos |
+| PostgreSQL | Persistencia |
+| Tailwind CSS | Estilos responsivos |
+| Lucide React | Iconografía |
+
+## 🚀 Instalación
+
+### Prerrequisitos
+- Node.js 18+
+- PostgreSQL (local o en la nube)
+
+### Pasos
+
+1. **Clonar e instalar dependencias**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cd endopolis
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Configurar variables de entorno**
+```bash
+cp .env.example .env
+# Editar .env con tu DATABASE_URL
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Configurar base de datos**
+```bash
+# Crear tablas
+npm run db:push
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Poblar datos iniciales
+npm run db:seed
+```
 
-## Learn More
+4. **Iniciar desarrollo**
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+5. **Abrir en navegador**
+```
+http://localhost:3000
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 👤 Credenciales de Prueba
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Administrador:**
+- Email: `admin@endopolis.com`
+- Password: `admin123`
 
-## Deploy on Vercel
+## 📁 Estructura del Proyecto
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+endopolis/
+├── prisma/
+│   ├── schema.prisma      # Modelo de datos
+│   └── seed.ts            # Datos iniciales
+├── src/
+│   ├── app/
+│   │   ├── (auth)/        # Login, registro
+│   │   ├── (public)/      # Páginas públicas
+│   │   ├── admin/         # Panel admin
+│   │   ├── agendar/       # Formulario de citas
+│   │   ├── api/           # API endpoints
+│   │   └── mi-cuenta/     # Portal paciente
+│   ├── components/
+│   │   ├── layout/        # Header, Footer, Sidebar
+│   │   ├── landing/       # Secciones de landing
+│   │   └── ui/            # Componentes reutilizables
+│   ├── lib/
+│   │   ├── prisma.ts      # Cliente de BD
+│   │   ├── auth.ts        # Autenticación
+│   │   └── appointments.ts # Lógica de citas
+│   └── types/             # TypeScript types
+└── public/                # Archivos estáticos
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🌐 Despliegue en Railway
+
+1. Crear cuenta en [Railway](https://railway.app)
+2. Crear nuevo proyecto
+3. Agregar PostgreSQL como servicio
+4. Conectar repositorio de GitHub
+5. Configurar variables de entorno:
+   - `DATABASE_URL` (se genera automáticamente)
+6. Desplegar
+
+Railway ejecutará automáticamente:
+- `npm install`
+- `prisma generate`
+- `npm run build`
+- `npm run start`
+
+## 📱 Capturas
+
+### Landing Page
+- Hero con video de YouTube
+- Sección de servicios
+- Equipo médico
+- Mapa de Google Maps
+- Botón de WhatsApp flotante
+
+### Portal del Paciente
+- Dashboard con próxima cita
+- Historial de citas
+- Edición de perfil
+
+### Panel Administrativo
+- Dashboard con estadísticas
+- Gestión de citas
+- Calendario visual
+- Lista de pacientes
+- Configuración
+
+## 🔑 Servicios Disponibles
+
+| Servicio | Duración | Horario L-V | Horario Sáb |
+|----------|----------|-------------|-------------|
+| Consulta Gastroenterología | 30 min | 08:00-12:30 | 09:00-14:00 |
+| Consulta Nutrición | 30 min | 08:00-12:30 | 09:00-14:00 |
+| Endoscopia | 60 min | 10:00-12:00 | 10:00-14:00 |
+| Colonoscopia | 60 min | 10:00-12:00 | 10:00-14:00 |
+
+## 📄 Licencia
+
+Este proyecto fue desarrollado como producto integrador para el curso IH719 - Conceptualización de Servicios en la Nube.
+
+---
+
+Desarrollado por Hiram Acevedo usando Next.js y Tailwind CSS

@@ -1,0 +1,133 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  email     String     @unique
+  password  String
+  role      UserRole   @default(PATIENT)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  caregiver Caregiver?
+  patient   Patient?
+}
+
+model Patient {
+  id              Int           @id @default(autoincrement())
+  firstName       String
+  lastName        String
+  birthDate       DateTime
+  phone           String
+  address         String?
+  weight          Float?
+  height          Float?
+  chronicDiseases String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  userId          Int?          @unique
+  caregiverId     Int?
+  appointments    Appointment[]
+  caregiver       Caregiver?    @relation(fields: [caregiverId], references: [id])
+  user            User?         @relation(fields: [userId], references: [id])
+}
+
+model Caregiver {
+  id           Int       @id @default(autoincrement())
+  firstName    String
+  lastName     String
+  phone        String
+  relationship String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  userId       Int       @unique
+  user         User      @relation(fields: [userId], references: [id])
+  patients     Patient[]
+}
+
+model Service {
+  id             Int             @id @default(autoincrement())
+  name           String
+  type           ServiceType     @unique
+  category       ServiceCategory
+  duration       Int
+  description    String?
+  price          Float?
+  isActive       Boolean         @default(true)
+  professionalId Int
+  appointments   Appointment[]
+  professional   Professional    @relation(fields: [professionalId], references: [id])
+}
+
+model Professional {
+  id        Int       @id @default(autoincrement())
+  title     String
+  firstName String
+  lastName  String
+  specialty String
+  photoUrl  String?
+  isActive  Boolean   @default(true)
+  services  Service[]
+}
+
+model Appointment {
+  id          Int               @id @default(autoincrement())
+  date        DateTime
+  status      AppointmentStatus @default(PENDING)
+  reason      String
+  notes       String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  confirmedAt DateTime?
+  patientId   Int
+  serviceId   Int
+  patient     Patient           @relation(fields: [patientId], references: [id])
+  service     Service           @relation(fields: [serviceId], references: [id])
+}
+
+model BlockedSlot {
+  id          Int          @id @default(autoincrement())
+  date        DateTime
+  startTime   String?
+  endTime     String?
+  reason      String?
+  isFullDay   Boolean      @default(false)
+  createdAt   DateTime     @default(now())
+  serviceType ServiceType?
+}
+
+model SystemConfig {
+  id    Int    @id @default(autoincrement())
+  key   String @unique
+  value String
+}
+
+enum UserRole {
+  PATIENT
+  ADMIN
+}
+
+enum ServiceType {
+  CONSULTA_GASTRO
+  CONSULTA_NUTRICION
+  ENDOSCOPIA
+  COLONOSCOPIA
+}
+
+enum ServiceCategory {
+  CONSULTA
+  PROCEDIMIENTO
+}
+
+enum AppointmentStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+  NO_SHOW
+}
