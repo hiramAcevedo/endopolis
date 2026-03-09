@@ -13,6 +13,8 @@ import Card from "@/components/ui/Card";
 import Button from "@/components/ui/Button";
 import { AppointmentStatusBadge } from "@/components/ui/Badge";
 
+export const dynamic = "force-dynamic";
+
 export default async function MiCuentaPage() {
   const session = await getSession();
 

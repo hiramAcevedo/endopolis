@@ -1,10 +1,21 @@
 # 🏥 Endopolis - Sistema de Gestión de Citas Médicas
 
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
+[![Prisma](https://img.shields.io/badge/Prisma-6-2D3748?logo=prisma)](https://www.prisma.io/)
+[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?logo=vercel)](https://vercel.com/)
+[![Supabase](https://img.shields.io/badge/Database-Supabase-3ECF8E?logo=supabase)](https://supabase.com/)
+
 Sistema web para la gestión de citas médicas de la Clínica de Gastroenterología y Nutrición Endopolis.
 
 ## 🌐 Demo en Vivo
 
 🔗 **[endopolis.vercel.app](https://endopolis.vercel.app)**
+
+<p align="center">
+  <img src="public/endopolis_landpage.jpeg" alt="Endopolis Landing Page" width="600">
+</p>
 
 ## 📋 Características
 
@@ -51,13 +62,13 @@ Sistema web para la gestión de citas médicas de la Clínica de Gastroenterolog
 │  │  Next.js 16 (App Router + API Routes)               │   │
 │  │  - SSR/SSG para páginas públicas                    │   │
 │  │  - API Routes para autenticación y CRUD             │   │
-│  │  - Edge Runtime para mejor rendimiento              │   │
+│  │  - Server Components con renderizado dinámico       │   │
 │  └─────────────────────────┬───────────────────────────┘   │
 └─────────────────────────────┼───────────────────────────────┘
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────┐
-│                  RAILWAY (Base de Datos)                    │
+│                 SUPABASE (Base de Datos)                    │
 │  ┌─────────────────────────────────────────────────────┐   │
 │  │  PostgreSQL                                          │   │
 │  │  - Tablas: User, Patient, Appointment, Service...   │   │
@@ -156,19 +167,18 @@ endopolis/
 
 | Variable | Descripción |
 |----------|-------------|
-| `DATABASE_URL` | URL de PostgreSQL con `?sslmode=disable` |
-| `JWT_SECRET` | Clave secreta para tokens (generar aleatoria) |
+| `DATABASE_URL` | URL de conexión PostgreSQL (Supabase) |
+| `JWT_SECRET` | Clave secreta para tokens (`openssl rand -hex 32`) |
 
 3. Deploy automático en cada push a `main`
 
-### Railway (Base de Datos)
+### Supabase (Base de Datos)
 
-1. Crear proyecto en [railway.app](https://railway.app)
-2. Agregar servicio PostgreSQL
-3. Copiar la URL de conexión
+1. Crear proyecto en [supabase.com](https://supabase.com)
+2. Ir a **Project Settings → Database** y copiar la Connection String (URI)
+3. Configurar `DATABASE_URL` en tu `.env` y en Vercel
 4. Ejecutar migraciones:
 ```bash
-# Con DATABASE_URL apuntando a Railway
 npx prisma db push
 npm run db:seed
 ```
@@ -176,8 +186,8 @@ npm run db:seed
 ### Variables de Entorno en Producción
 
 ```env
-# Railway PostgreSQL (agregar ?sslmode=disable)
-DATABASE_URL="postgresql://postgres:PASSWORD@HOST:PORT/railway?sslmode=disable"
+# Supabase PostgreSQL
+DATABASE_URL="postgresql://postgres.[ref]:[password]@aws-0-[region].pooler.supabase.com:6543/postgres"
 
 # Generar con: openssl rand -hex 32
 JWT_SECRET="clave-secreta-aleatoria-de-64-caracteres"
@@ -234,11 +244,4 @@ Este proyecto fue desarrollado como **Producto Integrador** para el curso:
 
 ---
 
-Desarrollado por **Hiram Acevedo** 🚀
-
-[![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
-[![Prisma](https://img.shields.io/badge/Prisma-6-2D3748?logo=prisma)](https://www.prisma.io/)
-[![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?logo=vercel)](https://vercel.com/)
-[![Railway](https://img.shields.io/badge/Database-Railway-0B0D0E?logo=railway)](https://railway.app/)
+**Hiram Acevedo** — 希拉木 · 2026
